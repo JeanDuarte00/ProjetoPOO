@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2027.09%20as%2019horas%20Atualizado/ProjetoPOO/Server/src/server/model/ContaCliente.java</file>
-            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2027.09%20as%2019horas%20Atualizado/ProjetoPOO/Server/src/server/controllers/ControllerCliente.java</file>
-            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2027.09%20as%2019horas%20Atualizado/ProjetoPOO/Server/src/server/views/TelaVerCardapioLoja.java</file>
-            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2027.09%20as%2019horas%20Atualizado/ProjetoPOO/Server/src/server/views/TelaPedidosLoja.java</file>
-            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2027.09%20as%2019horas%20Atualizado/ProjetoPOO/Server/src/server/views/TelaMenuCliente.java</file>
-            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2027.09%20as%2019horas%20Atualizado/ProjetoPOO/Server/src/server/views/MenuPrincipal.java</file>
-            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2027.09%20as%2019horas%20Atualizado/ProjetoPOO/Server/src/server/views/TelaVerCardapioCliente.java</file>
-            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2027.09%20as%2019horas%20Atualizado/ProjetoPOO/Server/src/server/views/TelaLoginLoja.java</file>
-            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2027.09%20as%2019horas%20Atualizado/ProjetoPOO/Server/src/server/views/TelaVisualizarLojasCliente.java</file>
+            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2026.09%20Atualizado/ProjetoPOO/Server/src/server/views/TelaPedidoCliente.java</file>
+            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2026.09%20Atualizado/ProjetoPOO/Server/src/server/model/Cardapio.java</file>
+            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2026.09%20Atualizado/ProjetoPOO/Server/src/server/views/TelaVerCardapioLoja.java</file>
+            <file>file:/C:/Users/users/Desktop/Versão%20Atual%2026.09%20Atualizado/ProjetoPOO/Server/src/server/views/TelaVerCardapioCliente.java</file>
         </group>
     </open-files>
 </project-private>

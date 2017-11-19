@@ -1,8 +1,4 @@
-/**
- * @author Jean Duarte
- */
-
-package server.DAO;
+package persistencia;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,20 +8,27 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import Interfaces.InterfaceBancoDeDados;
 import server.model.ContaCliente;
 
+abstract public class AbstractBancoDeDadosArquivos implements InterfaceBancoDeDados{
 
-abstract public class BancoDeDados implements InterfaceBancoDeDados{
-	
 	private String formatoArquivo = ".dat";
 	private String caminhoDir;
+	
+	private String arquivoDeRegistro;
 	
 	private FileInputStream fileIn;
 	private FileOutputStream fileOut;
   
 		
+	public String getArquivoDeRegistro() {
+		return arquivoDeRegistro;
+	}
+
+	public void setArquivoDeRegistro(String arquivoDeRegistro) {
+		this.arquivoDeRegistro = arquivoDeRegistro;
+	}
+
 	public String getFormatoArquivo() {
 		return formatoArquivo;
 	}
@@ -60,29 +63,30 @@ abstract public class BancoDeDados implements InterfaceBancoDeDados{
 
 
 	
-	
-	
-	
-	
 	public Object buscar(String login) {
-		
-		String arquivoDeRegistro = getCaminhoDir() + login + getFormatoArquivo();
-		
-		File file = new File( arquivoDeRegistro );
+				
+		File file = new File( getArquivoDeRegistro() );
 		
 		if( file.exists() ) {
 			
 			try {
-				setFileIn( new FileInputStream( file ) );			
+				
+				setFileIn( new FileInputStream( file ) );
 				ObjectInputStream stream = new ObjectInputStream(this.fileIn);
 				
-				ContaCliente cliente = (ContaCliente)stream.readObject();
+				Object objeto = (ContaCliente)stream.readObject();
 				
-				return cliente;
+				return objeto;
 				
-			}catch(Exception erro) {
-				System.out.println("Erro ao buscar o registro " + erro.getMessage());
-			}
+			} catch (IOException erro) {
+				System.out.println("Erro ao buscar registro " + erro.getMessage());
+				
+			} catch (ClassNotFoundException erro) {
+				System.out.println("Erro ao buscar registro " + erro.getMessage());
+				
+			}			
+			
+			
 		}
 		
 		return null;
@@ -91,39 +95,26 @@ abstract public class BancoDeDados implements InterfaceBancoDeDados{
 	
 	
 	
-	
-	
-	
 	/**	 
 	 * Metodo para deletar um registro de conta cliente
 	 * @param String login
 	 * */
 	public void apagar(String login) {
-		
-		String arquivoDeRegistro = getCaminhoDir() + login + getFormatoArquivo(); 
-		
-		File file = new File( arquivoDeRegistro );
-		
-		
-		if( file.exists() ) {
-			//bastante redundante, mas para deixar claro o que ocorre aqui deixamos assim...
+				
+		File file = new File( getArquivoDeRegistro() );		
+
+		try {
 			file.delete();
 			
-		}else {
-			
-			System.out.println("Registro nao existe");
-			
+		}catch(Exception error) {
+			System.out.println( "Erro ao deletar registro: " + error.getMessage() );
 		}
-		
-		
-		
 	}
-	
-	
-	
-	
-	
 
+	
+	
+	
+	
 	/**
 	 * Salva um objeto Cliente na base de dados
 	 * criando um arquivo expecifico para cada registro
@@ -131,12 +122,8 @@ abstract public class BancoDeDados implements InterfaceBancoDeDados{
 	 * @param Objeto Cliente
 	 * */
 	public void salvar(Object objeto) {
-		
-		ContaCliente cliente = (ContaCliente)objeto;
-		
-		String arquivoDeRegistro = getCaminhoDir() + cliente.getNome() + getFormatoArquivo(); 
 				
-		File file = new File( arquivoDeRegistro );
+		File file = new File( getArquivoDeRegistro() );
 						
 		try {				
 						
@@ -148,7 +135,7 @@ abstract public class BancoDeDados implements InterfaceBancoDeDados{
 				setFileOut( new FileOutputStream( arquivoDeRegistro , false) ); 			
 				
 				ObjectOutputStream stream = new ObjectOutputStream(this.fileOut);
-				stream.writeObject(cliente);
+				stream.writeObject(objeto);
 				
 			}
 
@@ -163,16 +150,13 @@ abstract public class BancoDeDados implements InterfaceBancoDeDados{
 	
 	
 	
-	
 	/**
 	 * Retorna todos os cliente do arquivo de conta clientes
 	 * portanto deve percorrer por todos os arquivo e 
 	 * ler os objtos e inserir na lista
 	 * @return List<Cliente>
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
 	 */
-	public List<Object> getTodosObjetos() {
+	public List<Object> getTodos() {
 		
 		File dir = new File( getCaminhoDir() );
 		File files[] = dir.listFiles();
@@ -185,8 +169,8 @@ abstract public class BancoDeDados implements InterfaceBancoDeDados{
 				setFileIn( new FileInputStream( fileAtual ) );
 				ObjectInputStream stream = new ObjectInputStream(this.fileIn);
 				
-				ContaCliente cliente = (ContaCliente)stream.readObject();
-				lista.add(cliente);
+				Object objeto = stream.readObject();
+				lista.add(objeto);
 				
 			}catch(Exception erro) {
 				System.out.println("Erro ao buscar todos os registros " + erro.getMessage());
@@ -195,9 +179,7 @@ abstract public class BancoDeDados implements InterfaceBancoDeDados{
 		
 		return lista;
 	}
-	
+
 	
 	
 }
-
-

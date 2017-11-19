@@ -7,6 +7,9 @@ package server.views;
 
 import java.util.Scanner;
 import server.controllers.ControllerCadastro;
+import server.controllers.ControllerCliente;
+import server.controllers.ControllerLoginCliente;
+import server.model.Cliente;
 import server.model.ContaCliente;
 import server.model.Validador;
 
@@ -66,11 +69,8 @@ public class TelaCadastroCliente {
             return null;
         }  
         
-        
-        
         ContaCliente novoCliente = new ContaCliente(nome, telefone, login, senha);
         return novoCliente;
-                
     }
 
 }

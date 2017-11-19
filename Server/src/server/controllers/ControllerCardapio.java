@@ -20,9 +20,7 @@ public class ControllerCardapio {
         bancoCardapio.criarCardapio(cardapio);
     }
 	
-    public ControllerCardapio(){
-        
-    }
+    
     //vai no banco de cardapio, busca o cardapio deseja, e retorna para quem chamou
     //assim podemos fazer qualquer coisa com um cardapio tal como
     //(remover, adicionar, alterar) um produto do cardapio
@@ -40,9 +38,5 @@ public class ControllerCardapio {
     */
     public void criarCardapio(Cardapio c){
         this.bancoCardapio.criarCardapio(c); 
-    }
-    public void atualizarCardapio(String id, Cardapio c){
-        this.bancoCardapio.removerCardapio(id);
-        this.criarCardapio(c);
     }
 }

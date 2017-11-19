@@ -7,7 +7,6 @@ package server.views;
 
 import java.util.Scanner;
 import server.model.Cardapio;
-import server.model.ContaCliente;
 import server.model.Produto;
 
 /**
@@ -19,11 +18,9 @@ public class TelaVerCardapioCliente {
     private Cardapio cardapio;
     private Scanner entrada;
     private int escolha;
-    private ContaCliente cliente;
    // private int escolha;
-    public TelaVerCardapioCliente(Cardapio c,ContaCliente cliente){
+    public TelaVerCardapioCliente(Cardapio c){
         this.cardapio = c;
-        this.cliente = cliente;
     }
     
     public void menuCardapio(){
@@ -47,13 +44,12 @@ public class TelaVerCardapioCliente {
     private void lerEntrada(){
         this.entrada = new Scanner(System.in);
         this.escolha = entrada.nextInt();
-        entrada.nextLine();
         System.gc();
     }
     private void switchMenu(){
         switch (this.escolha) {
             case 1:
-                TelaPedidoCliente telaRPC = new TelaPedidoCliente(this.cardapio,this.cliente); //ALTERADO
+                TelaPedidoCliente telaRPC = new TelaPedidoCliente(this.cardapio); //ALTERADO
                 telaRPC.menuPedidoCliente();      //ALTERADO       
                 break;
             case 2:

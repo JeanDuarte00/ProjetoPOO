@@ -58,13 +58,11 @@ public class TelaMenuCliente {
     public void switchMenu() {
         switch (this.escolha) {
             case 1:
-                TelaVisualizarLojasCliente tvl = new TelaVisualizarLojasCliente(c); //criar uma variavel apenas para chamar as telas, pode ser outro nome
+                TelaVisualizarLojasCliente tvl = new TelaVisualizarLojasCliente(); //criar uma variavel apenas para chamar as telas, pode ser outro nome
                 tvl.exibirMenu();
                 break;
             case 2:
-                //checarPedido
-                TelaChecarPedidoCliente verPedido = new TelaChecarPedidoCliente();
-                verPedido.mostrarPedido(c);
+                //checarPedido(idPedido);
                 break;
             case 3:
                 TelaPerfil tpl = new TelaPerfil(this.c);

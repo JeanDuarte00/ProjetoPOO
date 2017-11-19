@@ -15,10 +15,6 @@ public class ContaCliente extends Conta{
         
     }
     
-    public List<Pedido> getTodosPedidos(){
-        return this.pedidos;
-    }
-    
     public void addPedido(Pedido pedido){
         pedidos.add(pedido);
     }

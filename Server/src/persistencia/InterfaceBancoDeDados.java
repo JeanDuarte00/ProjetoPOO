@@ -1,4 +1,4 @@
-package Interfaces;
+package persistencia;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ public interface InterfaceBancoDeDados {
 	
 	public void apagar(String identificador);
 	
-	public List<Object> getTodosObjetos();
-		
+	public List<Object> getTodos();
+
+	
 }

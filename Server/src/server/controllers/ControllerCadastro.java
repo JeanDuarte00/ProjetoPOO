@@ -1,8 +1,11 @@
 package server.controllers;
 
-import server.DAO.ClienteDAO;
-import server.DAO.LojaDAO;
 
+
+import persistencia.ContaClienteArquivoDAO;
+import persistencia.ContaLojaArquivoDAO;
+import persistencia.InterfacePersistencia;
+import persistencia.PersistenciaImplementado;
 import server.model.Conta;
 import server.model.ContaCliente;
 import server.model.ContaLoja;
@@ -14,61 +17,61 @@ import server.model.ContaLoja;
  * 
  * */
 public class ControllerCadastro {
-    
-    private ClienteDAO bancoCliente = new ClienteDAO();
-    private LojaDAO bancoLoja = new LojaDAO();
+    	
+	private InterfacePersistencia bancoCliente = new PersistenciaImplementado( new ContaClienteArquivoDAO() );	
+	
+	private InterfacePersistencia bancoLoja = new PersistenciaImplementado( new ContaLojaArquivoDAO() );
+
 
     public boolean buscarLoginCliente(String login) {  //metodo para buscar login e dps validar com senha
-        ContaCliente c;
-        c = (ContaCliente)bancoCliente.buscar(login);
-        if (c != null) {
-            return true;
-        } else {
-            return false;
-        }
+    	
+        ContaCliente conta = (ContaCliente)bancoCliente.buscar(login);
+        
+        return (conta != null); //retorna o valor lógico da comparação - true se diferente de null, se não, false
+        
     }
 
     public boolean buscarLoginLoja(String login) {  //metodo para buscar login e dps validar com senha
-        ContaLoja l;
-        l = (ContaLoja)bancoLoja.buscar(login);
-        if (l != null) {
-            return true;
-        } else {
-            return false;
-        }
+        
+        ContaLoja conta = (ContaLoja)bancoLoja.buscar(login);
+        
+        return (conta != null); //retorna o valor lógico da comparação - true se diferente de null, se não, false
+        
     }
-//adiciona uma nova conta - passando uma Conta generica(Cliente ou Loja)
-
+    
+    
+    /**
+     * adiciona uma nova conta - passando uma Conta generica(Cliente ou Loja)
+     * */
     public void add(Conta conta) {
 
         if (conta instanceof ContaCliente) {
-            bancoCliente.salvar((ContaCliente) conta);
+        	bancoCliente.salvar( (ContaCliente)conta );
+            
+        
         } else {
-            bancoLoja.salvar((ContaLoja) conta);
+            bancoLoja.salvar( (ContaLoja)conta );
+            
             ContaLoja loja = (ContaLoja)conta;
             ControllerCardapio ctrCardapio = new ControllerCardapio(loja.getId());
         }
+        
     }
 
     //remove buscando pelo registro de login - buscar em  clientes, caso não ache vai em lojas
     public void remove(String login) {
 
-        boolean achou = false;
+    	try {
+    		bancoCliente.apagar(login);    		
+    	}catch(Exception erro) {
+    		try{
+        		bancoLoja.apagar(login);
+        		
+        	}catch(Exception error) {
+        		System.out.println("Registro não encontrado");
+        	}
+    	}
 
-        for (ContaCliente cliente : bancoCliente.getTodos()) {
-            if (cliente.getLogin().equals(login)) {//cliente achado
-                bancoCliente.getTodos().remove(cliente);
-                achou = true;
-            }
-        }
-
-        if (!achou) { //se não foi achado em cliente buscamos em lojas	
-            for (ContaLoja loja : bancoLoja.getTodos()) {
-                if (loja.getLogin().equals(login)) {//loja achada 
-                    bancoLoja.getTodos().remove(loja);
-                }
-            }
-        }
     }
 
 }

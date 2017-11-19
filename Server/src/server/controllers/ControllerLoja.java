@@ -18,7 +18,7 @@ public class ControllerLoja {
     }
 
     public ArrayList<ContaLoja> todasLojas() {
-        return dao.getTodos();
+        return (ArrayList<ContaLoja>)dao.getTodos();
     }
 
     public ArrayList<String> verLojas() {

@@ -24,11 +24,6 @@ public class TelaVisualizarLojasCliente {
     private int escolha;
     private String idLoja;
     private boolean op;
-    private ContaCliente cliente;
-    
-    public TelaVisualizarLojasCliente(ContaCliente c){
-        this.cliente = c;
-    }
 
     public void exibirMenu() {
         listarLojas();
@@ -63,7 +58,7 @@ public class TelaVisualizarLojasCliente {
                 Cardapio cardapio = controlCardapio.getCardapio(id);
                 System.out.println(""+cardapio.getId());               
                 if (cardapio != null) {
-                    TelaVerCardapioCliente telaVCC = new TelaVerCardapioCliente(cardapio,cliente);
+                    TelaVerCardapioCliente telaVCC = new TelaVerCardapioCliente(cardapio);
                     telaVCC.listarCardapio();
                 }else {
                     System.out.println("Cardapio de Loja não encontrado!");
