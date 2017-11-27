@@ -14,12 +14,21 @@ public class TelaMenuCliente {
     private boolean loop = true;
 
     TelaMenuCliente(ContaCliente c) {
-        ControllerCliente controllerC = new ControllerCliente();
+        this.setControllerC(new ControllerCliente());
         this.c = c;
         this.escolha = 0;
     }
+    
+	public ControllerCliente getControllerC() {
+		return controllerC;
+	}
 
-    private int getId() {
+	public void setControllerC(ControllerCliente controllerC) {
+		this.controllerC = controllerC;
+	}
+
+    @SuppressWarnings("unused")
+	private int getId() {
         return this.idPedido;
     }
 
@@ -31,7 +40,8 @@ public class TelaMenuCliente {
         this.loop = false;
     }
 
-    private void setId(int id) {
+    @SuppressWarnings("unused")
+	private void setId(int id) {
         this.idPedido = id;
     }
 
@@ -58,11 +68,13 @@ public class TelaMenuCliente {
     public void switchMenu() {
         switch (this.escolha) {
             case 1:
-                TelaVisualizarLojasCliente tvl = new TelaVisualizarLojasCliente(); //criar uma variavel apenas para chamar as telas, pode ser outro nome
+                TelaVisualizarLojasCliente tvl = new TelaVisualizarLojasCliente(c); //criar uma variavel apenas para chamar as telas, pode ser outro nome
                 tvl.exibirMenu();
                 break;
             case 2:
-                //checarPedido(idPedido);
+                //checarPedido
+                TelaChecarPedidoCliente verPedido = new TelaChecarPedidoCliente();
+                verPedido.mostrarPedido(c);
                 break;
             case 3:
                 TelaPerfil tpl = new TelaPerfil(this.c);
@@ -112,4 +124,6 @@ public class TelaMenuCliente {
         c.cliente.setTelefone(telefone);      
     }
      */
+
+
 }

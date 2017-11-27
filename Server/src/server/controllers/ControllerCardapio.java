@@ -1,6 +1,8 @@
 package server.controllers;
 
-import server.DAO.CardapioDAO;
+import persistencia.CardapioArquivoDAO;
+import persistencia.InterfacePersistencia;
+import persistencia.PersistenciaImplementado;
 import server.model.Cardapio;
 
 
@@ -13,11 +15,11 @@ import server.model.Cardapio;
  * */
 
 public class ControllerCardapio {
-    CardapioDAO bancoCardapio = new CardapioDAO();
+	private InterfacePersistencia bancoCardapio = new PersistenciaImplementado( new CardapioArquivoDAO() );	
 
     public ControllerCardapio(String id) {
         Cardapio cardapio = new Cardapio(id);
-        bancoCardapio.criarCardapio(cardapio);
+        bancoCardapio.salvar(cardapio);
     }
 	
     
@@ -25,7 +27,7 @@ public class ControllerCardapio {
     //assim podemos fazer qualquer coisa com um cardapio tal como
     //(remover, adicionar, alterar) um produto do cardapio
     public Cardapio getCardapio(String id){
-    	Cardapio cardapio = bancoCardapio.buscaCardapio(id);  
+    	Cardapio cardapio = (Cardapio)bancoCardapio.buscar(id);  
         if(cardapio!=null){
             return cardapio;
         }
@@ -37,6 +39,13 @@ public class ControllerCardapio {
        o criar cardapio recebe o cardapio vazio e salva no dao.        
     */
     public void criarCardapio(Cardapio c){
-        this.bancoCardapio.criarCardapio(c); 
+        this.bancoCardapio.salvar(c); 
     }
+
+
+	public void atualizarCardapio(String id, Cardapio cardapio) {
+		this.bancoCardapio.apagar(id);
+		this.bancoCardapio.salvar(cardapio);
+		
+	}
 }

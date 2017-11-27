@@ -7,9 +7,6 @@ package server.views;
 
 import java.util.Scanner;
 import server.controllers.ControllerCadastro;
-import server.controllers.ControllerCliente;
-import server.controllers.ControllerLoginCliente;
-import server.model.Cliente;
 import server.model.ContaCliente;
 import server.model.Validador;
 
@@ -18,11 +15,15 @@ import server.model.Validador;
  * @author Junior/Felix
  */
 public class TelaCadastroCliente {
+	
     ControllerCadastro ctrCadastro = new ControllerCadastro();
     Validador valida = new Validador();
     
+    
+    
     public void cadastroCliente() {
-        ContaCliente c = lerDados();
+    
+    	ContaCliente c = lerDados();
          if(c != null){          
             ControllerCadastro ctrCadastro = new ControllerCadastro();
             ctrCadastro.add(c);
@@ -32,19 +33,24 @@ public class TelaCadastroCliente {
             System.out.println("Não foi possivel realizar o cadastro!");
         }
     }
+    
+    
     private ContaCliente lerDados() {
-        boolean retornoController = false;
+    	Scanner tec = new Scanner(System.in);
+    	boolean retornoController = false;
+    	
         String nome;
         String senha;
         String login;
         String telefone;
-        
-        Scanner tec = new Scanner(System.in);
+                
         System.out.println("Digite o login: ");
+        
         login = tec.nextLine();      
         retornoController = ctrCadastro.buscarLoginCliente(login);
         if (retornoController == true) {
             System.out.println("Cliente já cadastrado");
+            tec.close();
             return null;
         }
         
@@ -52,6 +58,7 @@ public class TelaCadastroCliente {
         senha = tec.nextLine();
         if(!valida.senha(senha)){
             System.out.println("Senha invalida,");
+            tec.close();
             return null;
         }
         
@@ -59,6 +66,7 @@ public class TelaCadastroCliente {
         nome = tec.nextLine();       
         if(!valida.nome(nome)){
             System.out.println("Nome invalido!");
+            tec.close();
             return null;
         }
         
@@ -66,11 +74,14 @@ public class TelaCadastroCliente {
         telefone = tec.nextLine();       
         if(!valida.telefone(telefone)){
             System.out.print("Telefone invalido!");
+            tec.close();
             return null;
         }  
         
         ContaCliente novoCliente = new ContaCliente(nome, telefone, login, senha);
+        tec.close();
         return novoCliente;
+        
     }
 
 }

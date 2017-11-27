@@ -7,6 +7,8 @@ package server.views;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import estados.*;
 import server.controllers.ControllerPedido;
 import server.model.Item;
 import server.model.Pedido;
@@ -26,33 +28,49 @@ public class TelaPedidosLoja {
         this.id = id;
     }
     public void exibirNovosPedidos(){
+        int item =1;
         ControllerPedido contPedidos = new ControllerPedido();
-        this.pedidos = new ArrayList();
-        pedidos = contPedidos.novosPedidos(id);
-        for(Pedido p: this.pedidos){
-            System.out.println("--------------------------------");
-            System.out.println("ID: " + p.getId());
-            for(Item i: p.getItens()){
-                System.out.println(i.getProduto().getNome());
+        
+        this.pedidos = new ArrayList<Pedido>();
+        this.pedidos = contPedidos.novosPedidos(id);
+        
+        if(this.pedidos != null){
+            for(Pedido p: this.pedidos){
+                System.out.println("--------------------------------");
+                System.out.println("ID: " + p.getId());           
+                for(Item i: p.getItens()){
+                     System.out.println("Item: "+item +"      Produto: "+i.getProduto().getNome()+"        "+ "   Desc: "+i.getProduto().getDescricao()+ " Qtd: "+i.getQuantidade()+"        R$"+i.getProduto().getPreco());
+                    item++;
+                }
+                System.out.println("Voucher: " + p.getVoucherO());
+                System.out.println("Preço Total: "+p.getPreco());
+                item = 1;
             }
-            System.out.println("Voucher: " + p.getVoucherO());
-            System.out.println("Preço Total: "+p.getPreco());
+        }else{
+            System.out.println("Não há novos pedidos");
         }
+        
     }
     
     public void exibirTodosPedidos(){
         ControllerPedido contPedidos = new ControllerPedido();
-        this.pedidos = new ArrayList();
-        pedidos = contPedidos.getTodosPedidos(id);
-        for(Pedido p: this.pedidos){
-            System.out.println("--------------------------------");
-            System.out.println("ID: " + p.getId());
-            for(Item i: p.getItens()){
-                System.out.println(i.getProduto().getNome());
+        this.pedidos = new ArrayList<Pedido>();
+        this.pedidos = contPedidos.getTodosPedidos();
+        
+        if(this.pedidos != null){
+            for(Pedido p: this.pedidos){
+                System.out.println("--------------------------------");
+                System.out.println("ID: " + p.getId());
+                for(Item i: p.getItens()){
+                    System.out.println(i.getProduto().getNome());
+                }
+                System.out.println("Voucher: " + p.getVoucherO());
+                System.out.println("Preço Total: "+p.getPreco());
             }
-            System.out.println("Voucher: " + p.getVoucherO());
-            System.out.println("Preço Total: "+p.getPreco());
+        }else{
+            System.out.println("Não há pedidos");
         }
+        
     }
     public void telaMenuOp(){
         System.out.println("1)Novos pedidos");
@@ -77,20 +95,20 @@ public class TelaPedidosLoja {
             case 3:
                 System.out.println("Digite o id do pedido: ");
                 this.idPedido = this.entrada.nextLine();
-                this.pedido = contPedidos.buscarPedido(id);
-                this.pedido.setStatusVisualizado();
+                this.pedido = contPedidos.buscarPedido(idPedido);
+                this.pedido.setState( new StateVisualizado() );
                 break;
             case 4:
                 System.out.println("Digite o id do pedido: ");
                 this.idPedido = this.entrada.nextLine();
-                this.pedido = contPedidos.buscarPedido(id);
-                this.pedido.setStatusPronto();
+                this.pedido = contPedidos.buscarPedido(idPedido);
+                this.pedido.setState( new StatePronto() );;
                 break;
             case 5:
                 System.out.println("Digite o id do pedido: ");
                 this.idPedido = this.entrada.nextLine();
-                this.pedido = contPedidos.buscarPedido(id);
-                this.pedido.setStatusEntregue();
+                this.pedido = contPedidos.buscarPedido(idPedido);
+                this.pedido.setState( new StateEntregue() );
                 break;
             case 6:
                 return;

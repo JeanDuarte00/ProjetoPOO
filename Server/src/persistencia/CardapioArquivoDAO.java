@@ -3,7 +3,7 @@ package persistencia;
 import java.util.List;
 
 import server.model.Cardapio;
-import server.model.ContaLoja;
+
 
 public class CardapioArquivoDAO extends AbstractBancoDeDadosArquivos{
 	
@@ -22,10 +22,10 @@ public class CardapioArquivoDAO extends AbstractBancoDeDadosArquivos{
 	
 	
 	@Override
-	public ContaLoja buscar(String identificador) {
+	public Cardapio buscar(String identificador) {
 		
 		setArquivoDeRegistro( getCaminhoDir() + identificador + getFormatoArquivo() );
-		return (ContaLoja) super.buscar(identificador);
+		return (Cardapio) super.buscar(identificador);
 		
 	}
 	

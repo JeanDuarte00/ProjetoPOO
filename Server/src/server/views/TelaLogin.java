@@ -6,17 +6,26 @@
 package server.views;
 
 import java.util.Scanner;
-import server.controllers.ControllerCliente;
-import server.model.Cliente;
-
 /**
  *
  * @author Junior
  */
 public class TelaLogin {
+	private static TelaLogin instance=null;
     private Scanner entrada;
     private int escolha = 0;
-     public void exibirMenu() {
+    
+    private TelaLogin(){ 
+    }
+    
+    public static TelaLogin getInstance(){
+        if(instance==null){
+            instance= new TelaLogin();
+        }
+        return instance;
+    }
+    
+    public void exibirMenu() {
         System.out.println("1) LOGIN CLIENTE");
         System.out.println("2) LOGIN LOJA");
         System.out.println("3) SAIR");
@@ -35,11 +44,11 @@ public class TelaLogin {
     public void switchMenu() {
         switch (this.escolha) {
             case 1:
-                TelaLoginCliente tela = new TelaLoginCliente();
+                TelaLoginCliente tela = TelaLoginCliente.getInstance();
                 tela.login();
                 break;
             case 2:
-                TelaLoginLoja telaLoja1 = new TelaLoginLoja();
+                TelaLoginLoja telaLoja1 = TelaLoginLoja.getInstance();
                 telaLoja1.login();
                 break;
             case 3:

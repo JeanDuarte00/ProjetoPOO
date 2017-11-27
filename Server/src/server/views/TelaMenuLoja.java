@@ -7,7 +7,7 @@ package server.views;
 import java.util.Scanner;
 import server.controllers.ControllerPedido;
 import server.model.ContaLoja;
-import server.model.Loja;
+
 /**
  *
  * @author tarcisio

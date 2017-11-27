@@ -1,37 +1,48 @@
 package server.controllers;
 
 import java.util.ArrayList;
-import server.DAO.LojaDAO;
+
+
+import persistencia.ContaLojaArquivoDAO;
+import persistencia.InterfacePersistencia;
+import persistencia.PersistenciaImplementado;
 import server.model.ContaLoja;
 
 public class ControllerLoja {
 
-    private LojaDAO dao = new LojaDAO();
+	private InterfacePersistencia bancoLoja = new PersistenciaImplementado( new ContaLojaArquivoDAO() );	
+
 
     public ContaLoja buscarDados(String id) {
-        for (ContaLoja conta : this.dao.getTodos()) {
-            if (id.equals(conta.getId())) {
-                return conta;
+        for (Object conta : this.bancoLoja.getTodos()) {
+            if (id.equals(((ContaLoja) conta).getId())) {
+                return (ContaLoja)conta;
             }
         }
         return null;
     }
 
     public ArrayList<ContaLoja> todasLojas() {
-        return (ArrayList<ContaLoja>)dao.getTodos();
+    	ArrayList<ContaLoja> lista = new ArrayList<>();
+        
+    	for(Object loja : bancoLoja.getTodos()) {
+    		lista.add((ContaLoja)loja);
+    	}
+    	return lista;
+    	
     }
 
     public ArrayList<String> verLojas() {
         ArrayList<String> lista = new ArrayList<>();
 
-        for (ContaLoja loja : dao.getTodos()) {
-            lista.add("Id: " + loja.getId() + "   " + loja.getNome() + "  Contato: " + loja.getTelefone());
+        for (Object loja : bancoLoja.getTodos()) {
+            lista.add("Id: " + ((ContaLoja) loja).getId() + "   " + ((ContaLoja) loja).getNome() + "  Contato: " + ((ContaLoja) loja).getTelefone());
         }
         return lista;
     }
 
     public String tamanhoLoja() {
-        String id = Integer.toString(dao.getTodos().size() + 1);
+        String id = Integer.toString(bancoLoja.getTodos().size() + 1);
         if (id.length() <= 3) {
             if (id.length() == 2) {
                 id = "0" + id;

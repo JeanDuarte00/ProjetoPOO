@@ -46,14 +46,13 @@ public class MenuPrincipal implements InterfaceViews {
     public void switchMenu() {
         switch (this.escolha) {
             case 1:
-                TelaLogin telaUsuario1 = new TelaLogin();
+                TelaLogin telaUsuario1 = TelaLogin.getInstance();
                 telaUsuario1.exibirMenu();
                 break;
             case 2:
-                TelaCadastro telaLoja1 = new TelaCadastro();
+                TelaCadastro telaLoja1 = TelaCadastro.getInstance();
                 telaLoja1.exibirMenu();
-                //  telaLoja1.lerEntrada();
-                //  telaLoja1.switchMenu();
+               
                 break;
             case 3:
                 sair();

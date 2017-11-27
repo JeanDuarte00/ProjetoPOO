@@ -52,8 +52,9 @@ public class ControllerCadastro {
         } else {
             bancoLoja.salvar( (ContaLoja)conta );
             
-            ContaLoja loja = (ContaLoja)conta;
-            ControllerCardapio ctrCardapio = new ControllerCardapio(loja.getId());
+            //ContaLoja loja = (ContaLoja)conta;
+            //ControllerCardapio ctrCardapio = new ControllerCardapio(loja.getId());
+            
         }
         
     }

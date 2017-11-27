@@ -5,10 +5,21 @@ import java.util.Scanner;
 
 public class TelaCadastro implements InterfaceViews{
 
+	private static TelaCadastro instance=null;
+
     private Scanner entrada;
     private int escolha;
 
-
+    private TelaCadastro(){
+       
+    }
+    
+    public static TelaCadastro getInstance(){
+        if(instance==null){
+            instance= new TelaCadastro();
+        }
+        return instance;
+    }
     @Override
     public void exibirMenu() {
         System.out.println("1) CADASTRO CLIENTE");

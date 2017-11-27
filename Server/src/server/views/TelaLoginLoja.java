@@ -7,17 +7,32 @@ package server.views;
 
 import java.util.Scanner;
 import server.controllers.ControllerLoginLoja;
-import server.controllers.ControllerLoja;
+
 import server.model.ContaLoja;
-import server.model.Loja;
+
 
 /**
  *
  * @author
  */
 public class TelaLoginLoja {
+	private static TelaLoginLoja instance=null;
+    
+    private TelaLoginLoja(){
+    }
+    
+    public static TelaLoginLoja getInstance(){
+        if(instance==null){
+            instance= new TelaLoginLoja();
+        }
+        
+        return instance;
+    }
+    
+	
     public void login(){
-        ContaLoja loja;
+    
+    	ContaLoja loja;
         Scanner tec = new Scanner(System.in);
         String senha;
         String login;
@@ -29,6 +44,7 @@ public class TelaLoginLoja {
        loja = controller1.logar(login, senha);
         if(loja == null){
             System.out.println("Conta não existe");
+            tec.close();
         }else{
             System.out.println("Bem vindo !!!");
             //c = controller1.buscarDados(login);

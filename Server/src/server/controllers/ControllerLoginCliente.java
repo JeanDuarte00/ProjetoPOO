@@ -1,10 +1,13 @@
 
 package server.controllers;
 import server.model.ContaCliente;
-import server.DAO.ClienteDAO;
+import persistencia.ContaClienteArquivoDAO;
+import persistencia.InterfacePersistencia;
+import persistencia.PersistenciaImplementado;
+
 
 public class ControllerLoginCliente {
-    private ClienteDAO dao = new ClienteDAO();
+	private InterfacePersistencia bancoCliente = new PersistenciaImplementado( new ContaClienteArquivoDAO() );
     
     // apenas loga e retorna para view o objeto do cliente
     // a view com o objeto retornado, pode visualizar o cliente
@@ -20,7 +23,7 @@ public class ControllerLoginCliente {
     }*/
     public ContaCliente logar(String login, String senha){
         ContaCliente c;
-        c = dao.buscar(login);
+        c = (ContaCliente) bancoCliente.buscar(login);
         if(c != null && c.getSenha().equals(senha)){
             return c;
         }

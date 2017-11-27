@@ -3,15 +3,14 @@ package server.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import estados.*;
+
 public class Pedido {
     private String id;
     private String voucher;
     private List<Item> itens;
-
-    private boolean statusVisualizado;
-    private boolean statusPronto;
-    private boolean statusEntregue;
-
+    private StatePedido state;
+    
     public Pedido(String idLoja, String voucher, List<Item> itens){
     
         this.itens = new ArrayList<>();
@@ -20,11 +19,17 @@ public class Pedido {
         this.id = "" + idLoja + this.voucher;   	   
         this.itens = itens;
 
-        this.statusPronto = false;
-        this.statusVisualizado = false;
-        this.statusEntregue = false;
+        
    }    
-
+   public void setState(StatePedido state){
+       this.state = state;
+   }
+    
+   public String getEstadoPedido(){
+       return this.state.estadoPedido();
+   }
+   
+    
     public String getId() {
         return this.id;
     }
@@ -37,29 +42,6 @@ public class Pedido {
         return this.voucher;
     }
      
-    public boolean isStatusVisualizado() {
-        return this.statusVisualizado;
-    }
-
-    public boolean isStatusPronto() {
-    	return this.statusPronto;
-    }
-    
-    public boolean isStatusEntregue() {
-    	return this.statusEntregue;
-    }
-       
-    public void setStatusVisualizado() {
-        this.statusVisualizado = true;
-    }
-
-    public void setStatusPronto() {
-        this.statusPronto = true;
-    }
-       
-    public void setStatusEntregue(){
-        this.statusEntregue = true;
-    }
     
     public double getPreco() {
         double total = 0;
