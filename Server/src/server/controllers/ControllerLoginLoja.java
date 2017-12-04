@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 package server.controllers;
-import persistencia.ContaLojaArquivoDAO;
-import persistencia.InterfacePersistencia;
-import persistencia.PersistenciaImplementado;
+import persistencia1.ContaLojaArquivoDAO;
+import persistencia1.InterfacePersistencia;
+import persistencia1.PersistenciaImplementado;
 import server.model.ContaLoja;
 /**
  *

@@ -1,30 +1,31 @@
-package persistencia;
+package persistencia1;
 
 import java.util.List;
 
-import server.model.Pedido;
+import server.model.Cardapio;
 
-public class PedidoArquivoDAO extends AbstractBancoDeDadosArquivos{
 
-	public PedidoArquivoDAO(){
-		super.setCaminhoDir("base/pedidos/");		
+public class CardapioArquivoDAO extends AbstractBancoDeDadosArquivos{
+	
+	public CardapioArquivoDAO() {
+		super.setCaminhoDir("base/cardapios/");
 	}
-		
+	
 	@Override
 	public void salvar(Object objeto) {
-		Pedido pedido = (Pedido)objeto;
+		Cardapio cardapio = (Cardapio)objeto;
 		
-		setArquivoDeRegistro( getCaminhoDir() + pedido.getId() + getFormatoArquivo() );
-		super.salvar(pedido);
+		setArquivoDeRegistro( getCaminhoDir() + cardapio.getId() + getFormatoArquivo() );
+		super.salvar(cardapio);
 		
 	}
 	
 	
 	@Override
-	public Pedido buscar(String identificador) {
+	public Cardapio buscar(String identificador) {
 		
 		setArquivoDeRegistro( getCaminhoDir() + identificador + getFormatoArquivo() );
-		return (Pedido) super.buscar(identificador);
+		return (Cardapio) super.buscar(identificador);
 		
 	}
 	

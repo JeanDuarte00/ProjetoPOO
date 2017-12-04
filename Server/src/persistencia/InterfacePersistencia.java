@@ -2,14 +2,14 @@ package persistencia;
 
 import java.util.List;
 
-public interface InterfacePersistencia {
+public interface InterfacePersistencia<T> {
 
-	public void salvar(Object object);
+	public void salvar(T objeto);
 	
-	public Object buscar(String identificador);
+	public List<T> getTodos();
+	
+	public T buscar(String identificador);
 	
 	public void apagar(String identificador);
 	
-	public List<Object> getTodos();
-		
 }

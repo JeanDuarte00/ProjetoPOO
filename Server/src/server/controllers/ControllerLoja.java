@@ -2,10 +2,9 @@ package server.controllers;
 
 import java.util.ArrayList;
 
-
-import persistencia.ContaLojaArquivoDAO;
-import persistencia.InterfacePersistencia;
-import persistencia.PersistenciaImplementado;
+import persistencia1.ContaLojaArquivoDAO;
+import persistencia1.InterfacePersistencia;
+import persistencia1.PersistenciaImplementado;
 import server.model.ContaLoja;
 
 public class ControllerLoja {

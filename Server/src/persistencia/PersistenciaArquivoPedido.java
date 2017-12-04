@@ -8,73 +8,28 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import server.model.ContaCliente;
 
-abstract public class AbstractBancoDeDadosArquivos implements InterfaceBancoDeDados{
+import server.model.Pedido;
 
-	private String formatoArquivo = ".dat";
-	private String caminhoDir;
+public class PersistenciaArquivoPedido extends PersistenciaArquivo implements InterfacePersistencia<Pedido>{
+
+	public PersistenciaArquivoPedido() {
+		super.setCaminhoDir("REGISTROS/PEDIDOS/");
+		super.mkDir();
+	}
 	
-	private String arquivoDeRegistro;
-	
-	private FileInputStream fileIn;
-	private FileOutputStream fileOut;
-  
+	public Pedido buscar(String login) {
 		
-	public String getArquivoDeRegistro() {
-		return arquivoDeRegistro;
-	}
-
-	public void setArquivoDeRegistro(String arquivoDeRegistro) {
-		this.arquivoDeRegistro = arquivoDeRegistro;
-	}
-
-	public String getFormatoArquivo() {
-		return formatoArquivo;
-	}
-
-	public void setFormatoArquivo(String formatoArquivo) {
-		this.formatoArquivo = formatoArquivo;
-	}
-
-	public String getCaminhoDir() {
-		return caminhoDir;
-	}
-
-	public void setCaminhoDir(String caminhoDir) {
-		this.caminhoDir = caminhoDir;
-	}
-
-	public FileInputStream getFileIn() {
-		return fileIn;
-	}
-
-	public void setFileIn(FileInputStream fileIn) {
-		this.fileIn = fileIn;
-	}
-
-	public FileOutputStream getFileOut() {
-		return fileOut;
-	}
-
-	public void setFileOut(FileOutputStream fileOut) {
-		this.fileOut = fileOut;
-	}
-
-
-	
-	public Object buscar(String login) {
-				
-		File file = new File( getArquivoDeRegistro() );
+		File file = new File( this.getCaminhoDir() + login + this.getFormatoArquivo() );
 		
 		if( file.exists() ) {
 			
 			try {
 				
 				setFileIn( new FileInputStream( file ) );
-				ObjectInputStream stream = new ObjectInputStream(this.fileIn);
+				ObjectInputStream stream = new ObjectInputStream( this.getFileIn() );
 				
-				Object objeto = (ContaCliente)stream.readObject();
+				Pedido objeto = (Pedido)stream.readObject();
 				
 				return objeto;
 				
@@ -99,9 +54,9 @@ abstract public class AbstractBancoDeDadosArquivos implements InterfaceBancoDeDa
 	 * Metodo para deletar um registro de conta cliente
 	 * @param String login
 	 * */
-	public void apagar(String login) {
+	public void apagar(String id) {
 				
-		File file = new File( getArquivoDeRegistro() );		
+		File file = new File( this.getCaminhoDir() + id + this.getFormatoArquivo() );
 
 		try {
 			file.delete();
@@ -121,7 +76,9 @@ abstract public class AbstractBancoDeDadosArquivos implements InterfaceBancoDeDa
 	 * portanto organização dos diretorios é importante
 	 * @param Objeto Cliente
 	 * */
-	public void salvar(Object objeto) {
+	public void salvar(Pedido objeto) {
+		
+		setArquivoDeRegistro( getCaminhoDir() + objeto.getId() + getFormatoArquivo( ) ); 
 				
 		File file = new File( getArquivoDeRegistro() );
 						
@@ -132,10 +89,10 @@ abstract public class AbstractBancoDeDadosArquivos implements InterfaceBancoDeDa
 			
 			}else {
 							
-				setFileOut( new FileOutputStream( arquivoDeRegistro , false) ); 			
+				setFileOut( new FileOutputStream( getArquivoDeRegistro() , false) ); 			
 				
-				ObjectOutputStream stream = new ObjectOutputStream(this.fileOut);
-				stream.writeObject(objeto);
+				ObjectOutputStream stream = new ObjectOutputStream( getFileOut() );
+				stream.writeObject( objeto );
 				
 			}
 
@@ -156,20 +113,20 @@ abstract public class AbstractBancoDeDadosArquivos implements InterfaceBancoDeDa
 	 * ler os objtos e inserir na lista
 	 * @return List<Cliente>
 	 */
-	public List<Object> getTodos() {
+	public List<Pedido> getTodos() {
 		
-		File dir = new File( getCaminhoDir() );
+		File dir = new File( this.getCaminhoDir() );
 		File files[] = dir.listFiles();
 		
-		List<Object> lista = new ArrayList<>();
+		List<Pedido> lista = new ArrayList<>();
 		
 		for(File fileAtual : files) {
 		
 			try {
 				setFileIn( new FileInputStream( fileAtual ) );
-				ObjectInputStream stream = new ObjectInputStream(this.fileIn);
+				ObjectInputStream stream = new ObjectInputStream( this.getFileIn() );
 				
-				Object objeto = stream.readObject();
+				Pedido objeto = (Pedido)stream.readObject();
 				lista.add(objeto);
 				
 			}catch(Exception erro) {

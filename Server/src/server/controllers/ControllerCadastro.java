@@ -2,10 +2,10 @@ package server.controllers;
 
 
 
-import persistencia.ContaClienteArquivoDAO;
-import persistencia.ContaLojaArquivoDAO;
-import persistencia.InterfacePersistencia;
-import persistencia.PersistenciaImplementado;
+import persistencia1.ContaClienteArquivoDAO;
+import persistencia1.ContaLojaArquivoDAO;
+import persistencia1.InterfacePersistencia;
+import persistencia1.PersistenciaImplementado;
 import server.model.Conta;
 import server.model.ContaCliente;
 import server.model.ContaLoja;
